@@ -94,13 +94,32 @@ public class appdyn_dashboard {
         String getrestxml = restGet("/controller/rest/applications/137/problems/policy-violations", "time-range-type=BEFORE_NOW&duration-in-mins=10080");       
         
         if (getrestxml != null) {
-
+            
             for (int i = 0; i < parseXML(getrestxml, "/policy-violations/policy-violation/id").size(); i++) {
-                                                
+                           
+                //find the start time in ms of the event, convert to a string and then a long
+                Object start = parseXML(getrestxml, "/policy-violations/policy-violation/startTimeInMillis").get(i).toString();
+                String sstart = start.toString();
+                long lstart = Long.parseLong(sstart.trim());
+                
+                //find the end time in ms of the event, convert to a string and then a long
+                Object end = parseXML(getrestxml, "/policy-violations/policy-violation/endTimeInMillis").get(i).toString();
+                String send = end.toString();
+                long lend = Long.parseLong(send.trim());
+                
+                //subtract the end from the start, divide by 1000 ms, and again by 60 secs
+                //to find the duration of the event in mins
+                long math = (((lend - lstart)/1000)/60);              
+                                
+                //split the long name "CPU % Busy- warning rule" and take the first part
+                String name = parseXML(getrestxml, "/policy-violations/policy-violation/name").get(i).toString();
+                String names[] = name.split("-");
+                
                 problems.put(parseXML(getrestxml, "/policy-violations/policy-violation/id").get(i),
-                        parseXML(getrestxml, "/policy-violations/policy-violation/name").get(i) + "," +
+                        names[0] + "," +
                         parseXML(getrestxml, "/policy-violations/policy-violation/incidentStatus").get(i) + "," + 
-                        parseXML(getrestxml, "/policy-violations/policy-violation/severity").get(i));
+                        parseXML(getrestxml, "/policy-violations/policy-violation/severity").get(i) + "," +
+                        math);
             }
 
         }
@@ -114,7 +133,7 @@ public class appdyn_dashboard {
 
         try {
 
-            //maintain a set of user credentials used for auth scope (host, port, user, pass)
+            //maintain a set of user credentials used for auth scope (host, port, user, pass)                       
             httpclient.getCredentialsProvider().setCredentials(
                 new AuthScope(" .saas.appdynamics.com", AuthScope.ANY_PORT),
                 new UsernamePasswordCredentials(" @ ", " "));
@@ -162,6 +181,6 @@ public class appdyn_dashboard {
             is.close(); //close the inputstream
         }
 
-        return parsedlist;
+        return parsedlist;  //return the list
     }
 }
