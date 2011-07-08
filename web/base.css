@@ -1,0 +1,103 @@
+* {margin: 0; padding: 0;}
+
+body {
+    font: 0.8125em helvetica, verdana, georgia, "Lucida Grande", "Lucida Sans Unicode", "Trebuchet MS", "Arial Black", "Courier New", "Times New Roman", "Times", sans-serif;
+    line-height: 1;
+    color: #333; 
+    background: #fff;
+    }
+
+p   {
+    padding: 3px 3px 3px 3px;
+}
+    
+/* tables */
+table.tablesorter {
+    background-color: #cdcdcd;
+    width: 100%;
+    text-align: left;
+    }
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+    background-color: #6fa8bf;
+    border: 1px solid #fff;
+    font-size: 1em;
+    padding: 4px;
+    }
+table.tablesorter thead tr .header {
+    background-image: url(bg.gif);
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
+    }
+table.tablesorter tbody td {
+    color: #333;
+    padding: 4px;
+    background-color: #fff;
+    vertical-align: top;
+    }
+
+table.tablesorter thead tr .headerSortUp {
+    background-image: url(asc.gif);
+    }
+table.tablesorter thead tr .headerSortDown {
+    background-image: url(desc.gif);
+    }
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+    background-color: #5888a6;
+    }
+
+/*portal*/
+.fixedwidth {
+    position:relative;
+    width:910px;
+    }
+.rec1 {
+    position: static;    
+    color: #333;
+    margin: 5px;
+    margin-bottom: 20px;
+    }
+.rec2 {
+    position: static;
+    border: 2px solid #cdcdcd;
+    color: #333;
+    margin: 5px;
+    margin-bottom: 20px;
+    }
+.rec3 {
+    position: static;    
+    color: #333;    
+    margin: 5px;
+    margin-bottom: 20px;
+    }
+#column1 {
+    position: relative;
+    float: left;
+    width: 525px;
+    height: 100%;    
+    }
+#column2 {
+    position: relative;
+    float: left;
+    width: 385px;
+    height: 100%;    
+    }
+.handle {
+    text-align: left;
+    color: #333;
+    background-color: #6fa8bf;
+    font-size: 1em;
+    padding: 4px;
+    border: 1px solid #fff;
+    font-weight: bold;
+    }
+    
+#rec1 {
+    height:290px;
+    }
+#rec2 {
+    height:150px;
+    }
+#rec3 {
+    height:100%;
+    }

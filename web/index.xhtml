@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions" >
+    
+<h:head>
+
+<link rel="stylesheet" type="text/css" href="base.css" media="screen"/>
+
+<script type="text/javascript" src="jquery-1.6.2.js"></script>
+<script type="text/javascript" src="jquery.tablesorter.js"></script>
+
+<title>AppDynamics Dashboard</title>
+
+</h:head>
+<h:body>
+
+<script>
+$(document).ready(function() {
+    $("#table").tablesorter();
+    $("#table1").tablesorter();
+});
+</script>
+
+
+<f:event type="preRenderComponent" listener="#{appdyn_dashboard.initProblems}" />
+<f:event type="preRenderComponent" listener="#{appdyn_dashboard.initValues}" />
+<f:event type="preRenderComponent" listener="#{appdyn_dashboard.initNodes}" />
+
+<div class="fixedwidth">
+
+    <div id="column1">
+
+    <div id="rec3" class="rec3">
+
+    <table id="table" class="tablesorter">
+    <thead>
+    <tr>
+        <th>Business Transaction</th>
+        <th>Response in MS</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${appdyn_dashboard.values}" var="metrics">
+        <c:set var="msplit" value="${fn:split(metrics.key, '|')}" />
+        <tr><td>${msplit[3]}</td><td> ${metrics.value}</td></tr>
+    </c:forEach>
+    </tbody>
+    </table>
+
+    </div>
+
+    </div>
+
+    <div id="column2">
+
+    <div id="rec2" class="rec2">
+    <div id="rec2handle" class="handle">Application Architecture</div>        
+
+    <c:forEach items="${appdyn_dashboard.nodes}" var="nodes">
+    <c:set var="nsplit" value="${fn:split(nodes.value, ',')}" />
+    <p><strong>${nsplit[1]}</strong> is <strong>${nsplit[0]}</strong> on host <strong>${nsplit[2]}</strong>.</p>
+    </c:forEach>
+    <p>${nsplit[3]}<br/>${nsplit[4]}</p>
+
+    </div>
+
+    <div id="rec1" class="rec1">
+    
+    <table id="table1" class="tablesorter">
+    <thead>
+    <tr>
+        <th>Rule</th>
+        <th>Status</th>
+        <th>Severity</th>
+        <th>Duration</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${appdyn_dashboard.problems}" var="problems">
+        <c:set var="psplit" value="${fn:split(problems.value, ',')}" />
+        <tr><td>${psplit[0]}</td><td>${psplit[1]}</td><td>${psplit[2]}</td><td>0</td></tr>
+    </c:forEach>
+    </tbody>
+    </table>
+    
+    
+    </div>
+
+    </div>
+
+</div>
+    
+</h:body>
+</html>
+
