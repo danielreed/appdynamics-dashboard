@@ -62,9 +62,10 @@ $(document).ready(function() {
 
     <c:forEach items="${appdyn_dashboard.nodes}" var="nodes">
     <c:set var="nsplit" value="${fn:split(nodes.value, ',')}" />
-    <p><strong>${nsplit[1]}</strong> is <strong>${nsplit[0]}</strong> on host <strong>${nsplit[2]}</strong>.</p>
+    <p><strong>${nsplit[1]}</strong> is a <strong>${nsplit[0]}</strong> node running on host <strong>${nsplit[2]}</strong>.</p>
     </c:forEach>
-    <p>${nsplit[3]}<br/>${nsplit[4]}</p>
+    <p><strong>AppDynamics Information</strong><br/>
+    ${nsplit[3]}<br/>${nsplit[4]}</p>
 
     </div>
 
@@ -76,13 +77,13 @@ $(document).ready(function() {
         <th>Rule</th>
         <th>Status</th>
         <th>Severity</th>
-        <th>Duration</th>
+        <th>Duration in Mins</th>
     </tr>
     </thead>
     <tbody>
     <c:forEach items="${appdyn_dashboard.problems}" var="problems">
         <c:set var="psplit" value="${fn:split(problems.value, ',')}" />
-        <tr><td>${psplit[0]}</td><td>${psplit[1]}</td><td>${psplit[2]}</td><td>0</td></tr>
+        <tr><td>${psplit[0]}</td><td>${psplit[1]}</td><td>${psplit[2]}</td><td>${psplit[3]}</td></tr>
     </c:forEach>
     </tbody>
     </table>
